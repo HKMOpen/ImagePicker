@@ -22,7 +22,7 @@ allprojects {
 and:
 ```groovy
 dependencies {
-    compile 'com.hkm.ui:image-picker:1.5.1'
+    compile 'com.hkm.ui:image-picker:1.5.2'
 }
 ```
 
@@ -41,7 +41,8 @@ ImagePicker.create(this)
             .imageDirectory("Camera") // directory name for captured image  ("Camera" folder by default)
             .origin(images) // original selected images, used in multi mode
             .start(REQUEST_CODE_PICKER); // start image picker activity with request code
-```                
+```
+
 - Or use traditional Intent
 ```java
 Intent intent = new Intent(this, ImagePickerActivity.class);
@@ -56,7 +57,8 @@ intent.putExtra(ImagePickerActivity.INTENT_EXTRA_IMAGE_TITLE, "Tap to select ima
 intent.putExtra(ImagePickerActivity.INTENT_EXTRA_IMAGE_DIRECTORY, "Camera");
 
 startActivityForResult(intent, REQUEST_CODE_PICKER);
-```        
+```
+
 ### Receive result
 
 ```java

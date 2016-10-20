@@ -51,4 +51,3 @@ captures/
 /.idea
 .DS_Store
 /build
-/gradle.properties

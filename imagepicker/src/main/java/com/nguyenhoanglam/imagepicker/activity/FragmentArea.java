@@ -21,7 +21,6 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -39,6 +38,7 @@ import com.nguyenhoanglam.imagepicker.R;
 import com.nguyenhoanglam.imagepicker.adapter.FolderPickerAdapter;
 import com.nguyenhoanglam.imagepicker.adapter.ImagePickerAdapter;
 import com.nguyenhoanglam.imagepicker.helper.Constants;
+import com.nguyenhoanglam.imagepicker.helper.RxBux;
 import com.nguyenhoanglam.imagepicker.listeners.OnFolderClickListener;
 import com.nguyenhoanglam.imagepicker.listeners.OnImageClickListener;
 import com.nguyenhoanglam.imagepicker.model.Folder;
@@ -486,7 +486,7 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
                 imageAdapter.addSelected(images.get(position));
             }
         }
-        RxBus.get().post(EVENT_SELECT_SINGLE_IMAGE, images.get(position));
+        RxBux.get().post(EVENT_SELECT_SINGLE_IMAGE, images.get(position));
         updateTitle();
     }
 

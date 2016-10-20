@@ -13,6 +13,7 @@ import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.nguyenhoanglam.imagepicker.activity.ImagePicker;
 import com.nguyenhoanglam.imagepicker.helper.Constants;
+import com.nguyenhoanglam.imagepicker.helper.RxBux;
 import com.nguyenhoanglam.imagepicker.model.Image;
 
 import java.io.File;
@@ -37,12 +38,12 @@ public class MainShowInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_frame);
         image_holder = (ImageView) findViewById(R.id.image_holder);
         start();
-        RxBus.get().register(this);
+        RxBux.get().register(this);
     }
 
     @Override
     protected void onDestroy() {
-        RxBus.get().unregister(this);
+        RxBux.get().unregister(this);
         super.onDestroy();
     }
 
