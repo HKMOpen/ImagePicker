@@ -1,6 +1,8 @@
 ## ImagePicker
 A simple library to select images from the gallery and camera.
 
+[ ![Download](https://api.bintray.com/packages/jjhesk/maven/image-picker/images/download.svg) ](https://bintray.com/jjhesk/maven/image-picker/_latestVersion)
+
 [![](https://jitpack.io/v/nguyenhoanglam/ImagePicker.svg)](https://www.jitpack.io/#nguyenhoanglam/ImagePicker)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ImagePicker-green.svg?style=true)](https://android-arsenal.com/details/1/4072)
 
@@ -22,7 +24,7 @@ allprojects {
 and:
 ```groovy
 dependencies {
-    compile 'com.hkm.ui:image-picker:1.5.2'
+    compile 'com.hkm.ui:image-picker:1.5.3'
 }
 ```
 
