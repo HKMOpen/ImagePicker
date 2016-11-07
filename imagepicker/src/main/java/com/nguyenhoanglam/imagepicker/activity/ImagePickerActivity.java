@@ -36,11 +36,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.nguyenhoanglam.imagepicker.R;
 import com.nguyenhoanglam.imagepicker.adapter.FolderPickerAdapter;
 import com.nguyenhoanglam.imagepicker.adapter.ImagePickerAdapter;
 import com.nguyenhoanglam.imagepicker.helper.Constants;
 import com.nguyenhoanglam.imagepicker.helper.ImageUtils;
+import com.nguyenhoanglam.imagepicker.helper.Pickrx;
 import com.nguyenhoanglam.imagepicker.listeners.OnFolderClickListener;
 import com.nguyenhoanglam.imagepicker.listeners.OnImageClickListener;
 import com.nguyenhoanglam.imagepicker.model.Folder;
@@ -570,7 +574,6 @@ public class ImagePickerActivity extends AppCompatActivity implements OnImageCli
     @Override
     protected void onStart() {
         super.onStart();
-
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -617,6 +620,7 @@ public class ImagePickerActivity extends AppCompatActivity implements OnImageCli
             }
         };
         getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, observer);
+        Pickrx.get().register(this);
     }
 
     /**
@@ -703,11 +707,9 @@ public class ImagePickerActivity extends AppCompatActivity implements OnImageCli
     protected void onDestroy() {
         super.onDestroy();
         abortLoading();
-
         getContentResolver().unregisterContentObserver(observer);
-
+        Pickrx.get().unregister(this);
         observer = null;
-
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
             handler = null;
@@ -802,7 +804,7 @@ public class ImagePickerActivity extends AppCompatActivity implements OnImageCli
 
     /**
      * Return folder base on folder name
-
+     *
      * @param name string
      * @return folder
      */
@@ -827,5 +829,13 @@ public class ImagePickerActivity extends AppCompatActivity implements OnImageCli
 
         setResult(RESULT_CANCELED);
         super.onBackPressed();
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {@Tag(Constants.EVENT_FOLDER_SYSTEM_DETECTION)}
+    )
+    public void getImageAdapterUpdate(ArrayList<Image> im) {
+        setImageAdapter(im);
     }
 }

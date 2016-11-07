@@ -34,11 +34,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.nguyenhoanglam.imagepicker.R;
 import com.nguyenhoanglam.imagepicker.adapter.FolderPickerAdapter;
 import com.nguyenhoanglam.imagepicker.adapter.ImagePickerAdapter;
 import com.nguyenhoanglam.imagepicker.helper.Constants;
-import com.nguyenhoanglam.imagepicker.helper.RxBux;
+import com.nguyenhoanglam.imagepicker.helper.Pickrx;
 import com.nguyenhoanglam.imagepicker.listeners.OnFolderClickListener;
 import com.nguyenhoanglam.imagepicker.listeners.OnImageClickListener;
 import com.nguyenhoanglam.imagepicker.model.Folder;
@@ -124,21 +127,17 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
         folderTitle = intent.getString(INTENT_EXTRA_FOLDER_TITLE, getString(R.string.title_folder));
         imageTitle = intent.getString(INTENT_EXTRA_IMAGE_TITLE, getString(R.string.title_select_image));
         imageDirectory = intent.getString(INTENT_EXTRA_IMAGE_DIRECTORY);
-
         if (imageDirectory == null || TextUtils.isEmpty(imageDirectory)) {
             imageDirectory = getString(R.string.image_directory);
         }
-
         showCamera = intent.getBoolean(INTENT_EXTRA_SHOW_CAMERA, true);
         if (mode == MODE_MULTIPLE) {
             selectedImages = intent.getParcelableArrayList(INTENT_EXTRA_SELECTED_IMAGES);
         }
-
         if (selectedImages == null)
             selectedImages = new ArrayList<>();
 
         images = new ArrayList<>();
-
         /** Init folder and image adapter */
         imageAdapter = new ImagePickerAdapter(getActivity(), images, selectedImages, this);
         folderAdapter = new FolderPickerAdapter(getActivity(), new OnFolderClickListener() {
@@ -148,7 +147,6 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
                 setImageAdapter(bucket.getImages());
             }
         });
-
         orientationBasedUI(getResources().getConfiguration().orientation);
     }
 
@@ -209,7 +207,7 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        //RxBus.get().register(this);
+        Pickrx.get().register(this);
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -256,6 +254,7 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
             }
         };
         getActivity().getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, observer);
+
     }
 
     /**
@@ -446,7 +445,6 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
 
     /**
      * Return folder base on folder name
-
      *
      * @param name g
      * @return g
@@ -486,7 +484,7 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
                 imageAdapter.addSelected(images.get(position));
             }
         }
-        RxBux.get().post(EVENT_SELECT_SINGLE_IMAGE, images.get(position));
+        Pickrx.get().post(EVENT_SELECT_SINGLE_IMAGE, images.get(position));
         updateTitle();
     }
 
@@ -601,5 +599,13 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
         setItemDecoration(imageColumns);
         recyclerView.setAdapter(imageAdapter);
         updateTitle();
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {@Tag(Constants.EVENT_FOLDER_SYSTEM_DETECTION)}
+    )
+    public void getImageAdapterUpdate(ArrayList<Image> im) {
+        setImageAdapter(im);
     }
 }

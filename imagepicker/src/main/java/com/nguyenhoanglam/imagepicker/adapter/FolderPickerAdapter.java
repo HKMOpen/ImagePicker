@@ -20,11 +20,10 @@ import java.util.List;
  */
 public class FolderPickerAdapter extends RecyclerView.Adapter<FolderPickerAdapter.FolderViewHolder> {
 
+    private List<Folder> folders;
     private Context context;
     private LayoutInflater inflater;
     private final OnFolderClickListener folderClickListener;
-
-    private List<Folder> folders;
 
     public FolderPickerAdapter(Context context, OnFolderClickListener folderClickListener) {
         this.context = context;

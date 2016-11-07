@@ -34,6 +34,7 @@ public class Constants {
 
 
     public static final String EVENT_SELECT_SINGLE_IMAGE = "rx_event_image_pickerevent_s1";
+    public static final String EVENT_FOLDER_SYSTEM_DETECTION = "rx_event_detect_progress";
     public static final String EVENT_SELECT_MULTI_IMAGES = "rx_event_image_pickerevent_m1";
 
 }

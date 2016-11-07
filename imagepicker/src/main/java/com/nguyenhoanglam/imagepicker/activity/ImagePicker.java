@@ -106,7 +106,6 @@ public abstract class ImagePicker {
         }
     }
 
-
     public void init(Activity activity) {
         this.mode = MODE_SINGLE;
         this.limit = Constants.MAX_LIMIT;
@@ -117,7 +116,6 @@ public abstract class ImagePicker {
         this.selectedImages = new ArrayList<>();
         this.imageDirectory = activity.getString(R.string.image_directory);
     }
-
 
     public static ImagePickerWithActivity create(Activity activity) {
         return new ImagePickerWithActivity(activity);
@@ -144,7 +142,6 @@ public abstract class ImagePicker {
         mode = MODE_MULTIPLE;
         return this;
     }
-
 
     public ImagePicker limit(int count) {
         limit = count;
@@ -217,8 +214,6 @@ public abstract class ImagePicker {
         activity.getFragmentManager().beginTransaction()
                 .replace(framelayout_id, interFragment)
                 .commit();
-
-
     }
 
 }

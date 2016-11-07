@@ -7,6 +7,7 @@ package com.nguyenhoanglam.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -14,9 +15,13 @@ import android.widget.TextView;
 
 import com.nguyenhoanglam.imagepicker.activity.ImagePicker;
 import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
+import com.nguyenhoanglam.imagepicker.helper.ImageFolderDetection;
+import com.nguyenhoanglam.imagepicker.helper.Pickrx;
+import com.nguyenhoanglam.imagepicker.model.Folder;
 import com.nguyenhoanglam.imagepicker.model.Image;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.nguyenhoanglam.imagepicker.helper.Constants.*;
 
@@ -26,35 +31,65 @@ import static com.nguyenhoanglam.imagepicker.helper.Constants.*;
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private Button buttonPickImage;
-
+    private ImageFolderDetection im;
     private ArrayList<Image> images = new ArrayList<>();
-
     private int REQUEST_CODE_PICKER = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         textView = (TextView) findViewById(R.id.text_view);
         buttonPickImage = (Button) findViewById(R.id.button_pick_image);
         buttonPickImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                start();
+                start("Camera");
             }
         });
     }
 
+    private void start(String folder_name) {
+        ImagePicker.create(this).folderMode(false)
+                .folderTitle("Folder")
+                .imageTitle("Tap to select")
+                .single()
+                //.multi()  multi mode (default mode)
+                .limit(10)
+                .showCamera(false)
+                .imageDirectory(folder_name)
+                .origin(images)
+                .start(REQUEST_CODE_PICKER);
+
+        im = new ImageFolderDetection(this, new ImageFolderDetection.FolderGet() {
+            @Override
+            public void onFolder(List<Folder> list, ArrayList<Image> imageList) {
+                if (list.size() > 0) {
+                    Folder f = list.get(3);
+                    Pickrx.get().post(EVENT_FOLDER_SYSTEM_DETECTION, f.getImages());
+                }
+            }
+        });
+
+
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                im.detect();
+            }
+        }, 1000);
+
+    }
 
     // Recomended builder
-    public void start() {
+    private void start() {
         ImagePicker.create(this)
                 .folderMode(false) // set folder mode (false by default)
                 .folderTitle("Folder") // folder selection title
                 .imageTitle("Tap to select") // image selection title
                 .single() // single mode
-              //  .multi()  multi mode (default mode)
+                //.multi()  multi mode (default mode)
                 .limit(10) // max images can be selected (99 by default)
                 .showCamera(false) // show camera or not (true by default)
                 .imageDirectory("Camera")   // captured image directory name ("Camera" folder by default)
@@ -65,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
     // Traditional intent
     public void startWithIntent() {
         Intent intent = new Intent(this, ImagePickerActivity.class);
-
         intent.putExtra(INTENT_EXTRA_FOLDER_MODE, true);
         intent.putExtra(INTENT_EXTRA_MODE, MODE_MULTIPLE);
         intent.putExtra(INTENT_EXTRA_LIMIT, 10);

@@ -7,13 +7,12 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
 import com.nguyenhoanglam.imagepicker.activity.ImagePicker;
 import com.nguyenhoanglam.imagepicker.helper.Constants;
-import com.nguyenhoanglam.imagepicker.helper.RxBux;
+import com.nguyenhoanglam.imagepicker.helper.Pickrx;
 import com.nguyenhoanglam.imagepicker.model.Image;
 
 import java.io.File;
@@ -38,12 +37,12 @@ public class MainShowInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_frame);
         image_holder = (ImageView) findViewById(R.id.image_holder);
         start();
-        RxBux.get().register(this);
+        Pickrx.get().register(this);
     }
 
     @Override
     protected void onDestroy() {
-        RxBux.get().unregister(this);
+        Pickrx.get().unregister(this);
         super.onDestroy();
     }
 
