@@ -88,7 +88,24 @@ public class ImageFolderDetection {
                 }
             }
         };
+    }
 
+    /**
+     * Get data
+     */
+    public void detect() {
+        folders.clear();
+        images.clear();
+        observer = new ContentObserver(handler) {
+            @Override
+            public void onChange(boolean selfChange) {
+                detect();
+            }
+        };
+        abortLoading();
+        ImageLoaderRunnable runnable = new ImageLoaderRunnable();
+        thread = new Thread(runnable);
+        thread.start();
     }
 
     /**
@@ -107,15 +124,6 @@ public class ImageFolderDetection {
         }
     }
 
-    /**
-     * Get data
-     */
-    public void detect() {
-        abortLoading();
-        ImageLoaderRunnable runnable = new ImageLoaderRunnable();
-        thread = new Thread(runnable);
-        thread.start();
-    }
 
 
     /**
@@ -135,6 +143,7 @@ public class ImageFolderDetection {
 
     public void onDestroy() {
         abortLoading();
+        resource.getContentResolver().unregisterContentObserver(observer);
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
             handler = null;

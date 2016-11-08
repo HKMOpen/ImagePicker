@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 10
+        versionName "2.0"
     }
     buildTypes {
         release {
@@ -20,6 +20,7 @@ android {
     }
     lintOptions {
         abortOnError false
+        checkReleaseBuilds true
     }
 }
 
@@ -27,9 +28,9 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.1'
-    compile('com.github.bumptech.glide:glide:3.7.0')
-    compile('com.android.support:recyclerview-v7:24.2.1')
-    compile('com.android.support:design:24.2.1')
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
     compile 'com.hwangjr.rxbus:rxbus:1.0.5'
 }
 

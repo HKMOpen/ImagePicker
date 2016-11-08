@@ -44,22 +44,10 @@ public class MainActivity extends AppCompatActivity {
         buttonPickImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                start("Camera");
+                start();
             }
         });
-    }
 
-    private void start(String folder_name) {
-        ImagePicker.create(this).folderMode(false)
-                .folderTitle("Folder")
-                .imageTitle("Tap to select")
-                .single()
-                //.multi()  multi mode (default mode)
-                .limit(10)
-                .showCamera(false)
-                .imageDirectory(folder_name)
-                .origin(images)
-                .start(REQUEST_CODE_PICKER);
 
         im = new ImageFolderDetection(this, new ImageFolderDetection.FolderGet() {
             @Override
@@ -72,15 +60,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Handler h = new Handler();
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                im.detect();
-            }
-        }, 1000);
+
 
     }
+
 
     // Recomended builder
     private void start() {
@@ -95,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
                 .imageDirectory("Camera")   // captured image directory name ("Camera" folder by default)
                 .origin(images) // original selected images, used in multi mode
                 .start(REQUEST_CODE_PICKER); // start image picker activity with request code
+
+        Handler h = new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                im.detect();
+            }
+        }, 2000);
+
     }
 
     // Traditional intent

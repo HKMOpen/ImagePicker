@@ -185,9 +185,16 @@ public class ImagePickerActivity extends AppCompatActivity implements OnImageCli
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Pickrx.get().unregister(this);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         getDataWithPermission();
+        Pickrx.get().register(this);
     }
 
     /**
@@ -620,7 +627,7 @@ public class ImagePickerActivity extends AppCompatActivity implements OnImageCli
             }
         };
         getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, observer);
-        Pickrx.get().register(this);
+
     }
 
     /**
@@ -708,7 +715,6 @@ public class ImagePickerActivity extends AppCompatActivity implements OnImageCli
         super.onDestroy();
         abortLoading();
         getContentResolver().unregisterContentObserver(observer);
-        Pickrx.get().unregister(this);
         observer = null;
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);

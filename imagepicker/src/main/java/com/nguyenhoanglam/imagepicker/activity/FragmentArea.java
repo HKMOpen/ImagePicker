@@ -207,7 +207,7 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        Pickrx.get().register(this);
+
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -247,6 +247,7 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
                 }
             }
         };
+
         observer = new ContentObserver(handler) {
             @Override
             public void onChange(boolean selfChange) {
@@ -254,7 +255,6 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
             }
         };
         getActivity().getContentResolver().registerContentObserver(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, false, observer);
-
     }
 
     /**
@@ -341,7 +341,6 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RxBus.get().unregister(this);
         abortLoading();
         getActivity().getContentResolver().unregisterContentObserver(observer);
         observer = null;
@@ -349,6 +348,7 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
             handler.removeCallbacksAndMessages(null);
             handler = null;
         }
+
     }
 
 
@@ -583,9 +583,24 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
     }
 
     @Override
+    public void onPause() {
+        Pickrx.get().unregister(this);
+        super.onPause();
+    }
+
+    @Subscribe(
+            thread = EventThread.MAIN_THREAD,
+            tags = {@Tag(Constants.EVENT_FOLDER_SYSTEM_DETECTION)}
+    )
+    public void getImageAdapterUpdate(ArrayList<Image> im) {
+        setImageAdapter(im);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         getDataWithPermission();
+        Pickrx.get().register(this);
     }
 
     /**
@@ -601,11 +616,5 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
         updateTitle();
     }
 
-    @Subscribe(
-            thread = EventThread.MAIN_THREAD,
-            tags = {@Tag(Constants.EVENT_FOLDER_SYSTEM_DETECTION)}
-    )
-    public void getImageAdapterUpdate(ArrayList<Image> im) {
-        setImageAdapter(im);
-    }
+
 }

@@ -5,7 +5,7 @@ publish {
     userOrg = 'jjhesk'
     groupId = 'com.hkm.ui'
     artifactId = 'image-picker'
-    version = '1.6.0'
+    version = '1.6.5'
     uploadName = 'image-picker'
     description = "Advanced image picker support both activity and fragment"
     website = 'https://github.com/HKMOpen/ImagePicker'
