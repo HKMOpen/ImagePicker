@@ -13,7 +13,8 @@ A simple library to select images from the gallery and camera.
 
 ## Download
 Add to your module's build.gradle:
-```java
+
+```groovy
 allprojects {
     repositories {
         maven { url "https://jitpack.io" }
@@ -24,7 +25,7 @@ allprojects {
 and:
 ```groovy
 dependencies {
-    compile 'com.hkm.ui:image-picker:1.5.3'
+    compile 'com.hkm.ui:image-picker:1.6.5'
 }
 ```
 

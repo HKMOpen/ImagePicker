@@ -562,7 +562,9 @@ public class ImagePickerActivity extends AppCompatActivity implements OnImageCli
         if (intent.resolveActivity(getPackageManager()) != null) {
             File imageFile = ImageUtils.createImageFile(imageDirectory);
             if (imageFile != null) {
-                Uri uri = FileProvider.getUriForFile(this, getString(R.string.shared_file_provider), imageFile);
+                String file_provider = getString(R.string.shared_file_provider_hkm_ui);
+                String appid = getApplicationInfo().className + ".imagepicker.provider";
+                Uri uri = FileProvider.getUriForFile(this, file_provider, imageFile);
                 currentImagePath = "file:" + imageFile.getAbsolutePath();
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 startActivityForResult(intent, Constants.REQUEST_CODE_CAPTURE);
