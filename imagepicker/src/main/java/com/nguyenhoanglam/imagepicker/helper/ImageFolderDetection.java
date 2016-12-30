@@ -81,7 +81,9 @@ public class ImageFolderDetection {
                         }*/
 
                         break;
-
+                    case Constants.ERROR:
+                        abortLoading();
+                        break;
                     default:
                         super.handleMessage(msg);
 
@@ -123,7 +125,6 @@ public class ImageFolderDetection {
             }
         }
     }
-
 
 
     /**
@@ -173,9 +174,14 @@ public class ImageFolderDetection {
             if (Thread.interrupted()) {
                 return;
             }
+            Cursor cursor;
 
-            Cursor cursor = resource.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection,
-                    null, null, MediaStore.Images.Media.DATE_ADDED);
+            try {
+                cursor = resource.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, MediaStore.Images.Media.DATE_ADDED);
+            } catch (SecurityException e) {
+                postMessage(Constants.ERROR);
+                return;
+            }
 
             if (cursor == null) {
                 postMessage(Constants.ERROR);

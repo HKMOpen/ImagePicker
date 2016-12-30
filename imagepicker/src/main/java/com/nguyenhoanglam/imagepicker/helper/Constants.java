@@ -31,7 +31,8 @@ public class Constants {
     public static final String INTENT_EXTRA_FOLDER_TITLE = "folderTitle";
     public static final String INTENT_EXTRA_IMAGE_TITLE = "imageTitle";
     public static final String INTENT_EXTRA_IMAGE_DIRECTORY = "imageDirectory";
-
+    public static final String INTENT_EXTRA_SHEETPEEK_HEIGHT = "ex_height_peek";
+    public static final String INTENT_EXTRA_LAYOUT_RES = "ex_layout_res";
 
     public static final String EVENT_SELECT_SINGLE_IMAGE = "rx_event_image_pickerevent_s1";
     public static final String EVENT_FOLDER_SYSTEM_DETECTION = "rx_event_detect_progress";

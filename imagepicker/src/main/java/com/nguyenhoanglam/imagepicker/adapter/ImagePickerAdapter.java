@@ -75,7 +75,6 @@ public class ImagePickerAdapter extends RecyclerView.Adapter<ImagePickerAdapter.
         return images.size();
     }
 
-
     public void setData(List<Image> images) {
         this.images.clear();
         this.images.addAll(images);

@@ -1,4 +1,4 @@
-package com.nguyenhoanglam.sample;
+package com.nguyenhoanglam.sample.examples;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +17,7 @@ import com.nguyenhoanglam.imagepicker.helper.ImageFolderDetection;
 import com.nguyenhoanglam.imagepicker.helper.Pickrx;
 import com.nguyenhoanglam.imagepicker.model.Folder;
 import com.nguyenhoanglam.imagepicker.model.Image;
+import com.nguyenhoanglam.sample.R;
 
 import java.io.File;
 import java.util.ArrayList;

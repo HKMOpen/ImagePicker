@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera">카메라</string>
+    <string name="done">완료</string>
+    <string name="error_create_image_file">실패 사진 파일을 만듭니다</string>
+    <string name="error_no_camera">카메라를 찾을 수 없습니다</string>
+    <string name="error_null_cursor">아차! 문제가 발생했습니다!</string>
+    <string name="image_directory">이미지 디렉토리</string>
+    <string name="msg_empty_images">이미지가 없습니다</string>
+    <string name="msg_limit_images">사진을 선택하는 최대 수에 도달</string>
+    <string name="msg_no_camera_permission">카메라가 이미지를 캡처하도록 허락 해주십시오</string>
+    <string name="msg_no_write_external_permission">이미지를 선택하려면 저장 권한을 부여하십시오</string>
+    <string name="ok">좋은</string>
+    <string name="permission_write_external_rationale">사진을 선택하기 위해 외부 메모리에 대한 액세스를 허용하십시오</string>
+    <string name="selected">선택한 %d 개</string>
+    <string name="selected_with_limit">선택된 %1$d/%2$d</string>
+    <string name="title_folder">폴더</string>
+    <string name="title_permission_denied">아무 권한이 없습니다</string>
+    <string name="title_select_image">사진을 선택</string>
+</resources>

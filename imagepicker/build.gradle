@@ -3,12 +3,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 //group = 'com.github.nguyenhoanglam'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.2'
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 10
         versionName "2.0"
     }
@@ -25,13 +25,17 @@ android {
 }
 
 dependencies {
+    final SUPPORT_LIBRARY_VERSION = '25.1.0'
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
+
+    compile "com.github.bumptech.glide:glide:3.7.0"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:support-v13:$SUPPORT_LIBRARY_VERSION"
+    compile "com.hwangjr.rxbus:rxbus:1.0.5"
 }
 
 apply from: 'bintray_3_4.gradle'

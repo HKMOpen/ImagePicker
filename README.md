@@ -25,7 +25,7 @@ allprojects {
 and:
 ```groovy
 dependencies {
-    compile 'com.hkm.ui:image-picker:1.6.5'
+    compile 'com.hkm.ui:image-picker:1.7.1'
 }
 ```
 
@@ -67,19 +67,25 @@ startActivityForResult(intent, REQUEST_CODE_PICKER);
 ```java
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_CODE_PICKER && resultCode == RESULT_OK && data != null) {
-        ArrayList<Image> images = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
-        // do your logic ....
-    }
-}
+     if (requestCode == REQUEST_CODE_PICKER && resultCode == RESULT_OK && data != null) {
+         ArrayList<Image> images = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
+         // do your logic ....
+     }
+ }
 ```
+
+##International Languages
+- Chinese
+- English
+- Japanese
+- Korean
 
 ##Thanks
 - Darshan Dorai for [MultipleImageSelect](https://github.com/darsh2/MultipleImageSelect) 
 - [Glide](https://github.com/bumptech/glide) for image loading implementation
 
 ##License
-Copyright 2016 Nguyen Hoang Lam
+Copyright 2016 Nguyen Hoang Lam / Hesk The Hack Developer
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 

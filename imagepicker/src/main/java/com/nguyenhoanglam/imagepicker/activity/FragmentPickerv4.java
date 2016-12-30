@@ -1,8 +1,7 @@
 package com.nguyenhoanglam.imagepicker.activity;
 
-
 import android.Manifest;
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -21,6 +20,7 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -33,7 +33,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
 import com.hwangjr.rxbus.annotation.Tag;
 import com.hwangjr.rxbus.thread.EventThread;
@@ -53,14 +52,24 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.nguyenhoanglam.imagepicker.helper.Constants.EVENT_SELECT_SINGLE_IMAGE;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.INTENT_EXTRA_FOLDER_MODE;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.INTENT_EXTRA_FOLDER_TITLE;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.INTENT_EXTRA_GRID_COLUMN;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.INTENT_EXTRA_IMAGE_DIRECTORY;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.INTENT_EXTRA_IMAGE_TITLE;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.INTENT_EXTRA_LIMIT;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.INTENT_EXTRA_MODE;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.INTENT_EXTRA_SELECTED_IMAGES;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.INTENT_EXTRA_SHOW_CAMERA;
+import static com.nguyenhoanglam.imagepicker.helper.Constants.MODE_MULTIPLE;
+
 /**
- * Created by hesk on 16年10月19日.
+ * Created by hesk on 16年12月30日.
  */
-import static com.nguyenhoanglam.imagepicker.helper.Constants.*;
 
-public class FragmentArea extends Fragment implements OnImageClickListener {
-
-    private static final String TAG = "ImageFragmentPicker";
+public class FragmentPickerv4 extends Fragment implements OnImageClickListener {
+    private static final String TAG = "ImageFragmentPickerv13";
 
     private List<Folder> folders;
     private ArrayList<Image> images;
@@ -615,6 +624,5 @@ public class FragmentArea extends Fragment implements OnImageClickListener {
         recyclerView.setAdapter(imageAdapter);
         updateTitle();
     }
-
 
 }

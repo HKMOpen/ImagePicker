@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Spinner
+            android:id="@+id/finder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:id="@+id/okbutton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingRight="5dp"
+            android:text="@string/done"
+            android:textSize="@dimen/font_medium" />
+    </RelativeLayout>
+
+
+    <include layout="@layout/fragment_image_picker" />
+
+</LinearLayout>

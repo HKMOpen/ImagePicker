@@ -19,6 +19,7 @@ import com.nguyenhoanglam.imagepicker.helper.ImageFolderDetection;
 import com.nguyenhoanglam.imagepicker.helper.Pickrx;
 import com.nguyenhoanglam.imagepicker.model.Folder;
 import com.nguyenhoanglam.imagepicker.model.Image;
+import com.nguyenhoanglam.imagepicker.activity.BottomSheetImagePicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ import static com.nguyenhoanglam.imagepicker.helper.Constants.*;
  */
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
-    private Button buttonPickImage;
+    private Button buttonPickImage, buttonPickImage2;
     private ImageFolderDetection im;
     private ArrayList<Image> images = new ArrayList<>();
     private int REQUEST_CODE_PICKER = 2000;
@@ -48,7 +49,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        buttonPickImage2 = (Button) findViewById(R.id.button_bottom_sheet);
+        buttonPickImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.createBottomSheetFragment(MainActivity.this)
+                        .folderMode(false) // set folder mode (false by default)
+                        .folderTitle("Folder") // folder selection title
+                        .imageTitle("Tap to select") // image selection title
+                        .single() // single mode
+                        .setGridColumn(4)
+                        // .multi()  multi mode (default mode)
+                        .limit(10) // max images can be selected (99 by default)
+                        .showCamera(false) // show camera or not (true by default)
+                        .imageDirectory("Camera") // captured image directory name ("Camera" folder by default)
+                        .origin(images) // original selected images, used in multi mode
+                        .setBSPeekHeight(getResources().getDimensionPixelOffset(R.dimen.filter_start))
+                        .start(202); // start image picker activity with request code
+            }
+        });
         im = new ImageFolderDetection(this, new ImageFolderDetection.FolderGet() {
             @Override
             public void onFolder(List<Folder> list, ArrayList<Image> imageList) {
@@ -58,12 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
     }
-
 
     // Recomended builder
     private void start() {
